@@ -1,14 +1,22 @@
 import { Component, computed, signal } from '@angular/core';
 import { Product } from './product-model';
 import { CommonModule } from '@angular/common';
+import { form, Field } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-shopping-cart',
-  imports: [CommonModule],
+  imports: [CommonModule, Field],
   templateUrl: './shopping-cart.html',
   styleUrl: './shopping-cart.scss',
 })
 export class ShoppingCart {
+
+  productModel = signal<Product>({
+    name: '',
+    price: 0
+  });
+
+  productForm = form(this.productModel);
 
   cart = signal<Product[]>([]);
 
@@ -22,6 +30,8 @@ export class ShoppingCart {
 
   addItem(product: Product) {
     this.cart.update(c => [...c, product]);
+    this.productForm.name().value.set('');
+    this.productForm.price().value.set(0);
   }
 
   clear() {

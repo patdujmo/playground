@@ -1,3 +1,8 @@
+<h2>Add new items</h2>
+<input type="text" [field]="productForm.name" />
+<input type="number" [field]="productForm.price" />
+<button (click)="addItem({ name: productForm.name().value(), price: productForm.price().value() })">Add item</button>
+
 <h2>Shopping Cart</h2>
 
 <button (click)="addItem({ name: 'Pizza', price: 10 })">Add Pizza</button>
@@ -11,4 +16,5 @@
   <ul>
     <li *ngFor="let p of cart()">{{ p.name }} - {{ p.price }} €</li>
   </ul>
+  <p>Total price: {{ totalPrice() }} €</p>
 }
